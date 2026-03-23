@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StatMunshi — IPL Cricket Stats & AI Analysis</title>
+  <meta name="description" content="StatMunshi is the ultimate cricket companion for IPL fans. Explore deep stats, AI-powered analysis, live scores, quizzes and more. Free on Android." />
+  <meta name="theme-color" content="#07101F" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── RESET & ROOT ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:        #07101F;
+      --navy-mid:    #0D1A2E;
+      --navy-light:  #132238;
+      --navy-card:   #0F1B30;
+      --red:         #E8293E;
+      --red-hover:   #FF3D55;
+      --red-glow:    rgba(232,41,62,0.25);
+      --white:       #FFFFFF;
+      --off-white:   #E8EDF3;
+      --muted:       #7A8FA8;
+      --border:      rgba(255,255,255,0.07);
+      --font-display: 'Barlow Condensed', sans-serif;
+      --font-body:    'Barlow', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy);
+      color: var(--off-white);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NOISE TEXTURE OVERLAY ───────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      opacity: 0.35;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── UTILITY ─────────────────────────────────────────────── */
+    .container {
+      width: 100%; max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative; z-index: 1;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────────── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(7,16,31,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+    }
+
+    .nav-logo-icon {
+      width: 36px; height: 36px;
+      background: var(--red);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .nav-logo-icon svg { width: 22px; height: 22px; fill: #fff; }
+
+    .nav-logo-text {
+      font-family: var(--font-display);
+      font-size: 22px; font-weight: 800;
+      letter-spacing: 0.04em;
+      color: var(--white);
+    }
+
+    .nav-logo-text span { color: var(--red); }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13px; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-cta {
+      background: var(--red);
+      color: #fff !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-size: 13px !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.05em;
+      transition: background 0.2s, transform 0.15s !important;
+    }
+
+    .nav-cta:hover {
+      background: var(--red-hover) !important;
+      color: #fff !important;
+      transform: translateY(-1px);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 4px;
+    }
+
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--off-white);
+      border-radius: 2px;
+      transition: all 0.25s;
+    }
+
+    /* ── HERO ─────────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      display: flex; align-items: center;
+      overflow: hidden;
+      padding: 80px 0 60px;
+    }
+
+    /* diagonal accent strip */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -10%; right: -5%;
+      width: 55%; height: 130%;
+      background: linear-gradient(135deg, transparent 0%, rgba(232,41,62,0.04) 50%, transparent 100%);
+      transform: skewX(-8deg);
+      pointer-events: none;
+    }
+
+    /* big background number */
+    .hero-bg-number {
+      position: absolute;
+      right: -20px; top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-display);
+      font-size: clamp(220px, 28vw, 380px);
+      font-weight: 900;
+      line-height: 1;
+      color: rgba(255,255,255,0.025);
+      pointer-events: none;
+      user-select: none;
+      letter-spacing: -0.04em;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(232,41,62,0.12);
+      border: 1px solid rgba(232,41,62,0.3);
+      border-radius: 40px;
+      padding: 5px 14px 5px 10px;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 24px;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--red);
+      border-radius: 50%;
+      animation: blink 1.8s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%,100% { opacity: 1; }
+      50%      { opacity: 0.3; }
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 6vw, 84px);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+
+    .hero-title .accent { color: var(--red); }
+
+    .hero-title .line-indent {
+      display: block;
+      padding-left: 0.2em;
+    }
+
+    .hero-tagline {
+      font-size: clamp(15px, 1.6vw, 18px);
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 460px;
+      margin-bottom: 40px;
+    }
+
+    .hero-tagline strong {
+      color: var(--off-white);
+      font-weight: 500;
+    }
+
+    .hero-actions {
+      display: flex; align-items: center;
+      flex-wrap: wrap; gap: 16px;
+    }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--red);
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 15px; font-weight: 600;
+      padding: 14px 28px;
+      border-radius: 10px;
+      border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 24px var(--red-glow);
+      white-space: nowrap;
+    }
+
+    .btn-primary:hover {
+      background: var(--red-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px var(--red-glow);
+    }
+
+    .btn-primary svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--muted);
+      font-size: 14px; font-weight: 500;
+      padding: 14px 4px;
+      border-bottom: 1px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .btn-secondary:hover {
+      color: var(--off-white);
+      border-color: var(--off-white);
+    }
+
+    /* hero stats strip */
+    .hero-stats {
+      display: flex; gap: 32px;
+      margin-top: 52px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+
+    .hero-stat-item {}
+
+    .hero-stat-num {
+      font-family: var(--font-display);
+      font-size: 32px; font-weight: 800;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .hero-stat-num span { color: var(--red); }
+
+    .hero-stat-label {
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* hero phone mockup */
+    .hero-visual {
+      display: flex; justify-content: center; align-items: center;
+      position: relative;
+    }
+
+    .phone-frame {
+      width: min(280px, 72vw);
+      aspect-ratio: 9/19;
+      background: var(--navy-card);
+      border-radius: 36px;
+      border: 2px solid rgba(255,255,255,0.1);
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.04),
+        0 40px 80px rgba(0,0,0,0.6),
+        0 0 60px rgba(232,41,62,0.12);
+    }
+
+    .phone-notch {
+      position: absolute; top: 14px; left: 50%;
+      transform: translateX(-50%);
+      width: 90px; height: 26px;
+      background: var(--navy);
+      border-radius: 20px;
+      z-index: 2;
+    }
+
+    .phone-screen {
+      position: absolute; inset: 0;
+      padding: 56px 16px 20px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+
+    .phone-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .phone-app-name {
+      font-family: var(--font-display);
+      font-size: 18px; font-weight: 800;
+      color: var(--white);
+      letter-spacing: 0.04em;
+    }
+
+    .phone-app-name span { color: var(--red); }
+
+    .phone-live-dot {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 9px; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: #4ade80;
+    }
+
+    .phone-live-dot::before {
+      content: '';
+      width: 5px; height: 5px;
+      background: #4ade80;
+      border-radius: 50%;
+      animation: blink 1.2s infinite;
+    }
+
+    .phone-match-card {
+      background: linear-gradient(135deg, rgba(232,41,62,0.18), rgba(232,41,62,0.06));
+      border: 1px solid rgba(232,41,62,0.25);
+      border-radius: 12px;
+      padding: 12px;
+    }
+
+    .phone-match-teams {
+      display: flex; align-items: center; justify-content: space-between;
+      font-family: var(--font-display);
+      font-size: 13px; font-weight: 700;
+      color: var(--white);
+    }
+
+    .phone-match-vs {
+      font-size: 9px; font-weight: 600;
+      color: var(--muted);
+    }
+
+    .phone-score {
+      font-family: var(--font-display);
+      font-size: 20px; font-weight: 800;
+      color: var(--white);
+      line-height: 1;
+      margin-top: 6px;
+    }
+
+    .phone-score small {
+      font-size: 10px; font-weight: 400;
+      color: var(--muted);
+    }
+
+    .phone-stat-row {
+      display: flex; gap: 8px;
+    }
+
+    .phone-stat-box {
+      flex: 1;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 10px;
+    }
+
+    .phone-stat-box-label {
+      font-size: 8px; font-weight: 600;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+
+    .phone-stat-box-val {
+      font-family: var(--font-display);
+      font-size: 14px; font-weight: 800;
+      color: var(--white);
+    }
+
+    .phone-ai-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px;
+      display: flex; align-items: flex-start; gap: 8px;
+    }
+
+    .phone-ai-icon {
+      width: 22px; height: 22px;
+      background: var(--red);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-size: 10px;
+    }
+
+    .phone-ai-text {
+      font-size: 9px; line-height: 1.5;
+      color: var(--muted);
+    }
+
+    .phone-ai-text strong {
+      display: block;
+      font-size: 9px; font-weight: 600;
+      color: var(--off-white);
+      margin-bottom: 2px;
+    }
+
+    .phone-nav-bar {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 52px;
+      background: var(--navy-mid);
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-around;
+      padding: 0 8px;
+    }
+
+    .phone-nav-item {
+      display: flex; flex-direction: column; align-items: center; gap: 2px;
+      flex: 1;
+      font-size: 7px; font-weight: 600;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .phone-nav-item.active { color: var(--red); }
+
+    .phone-nav-item svg { width: 14px; height: 14px; }
+
+    /* glow ring */
+    .hero-glow {
+      position: absolute;
+      width: 340px; height: 340px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,41,62,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* ── FEATURES SECTION ─────────────────────────────────────── */
+    .features {
+      padding: 100px 0;
+      position: relative; z-index: 1;
+    }
+
+    .section-label {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 5vw, 58px);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.01em;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .section-sub {
+      font-size: 16px; font-weight: 300;
+      color: var(--muted);
+      max-width: 520px;
+      line-height: 1.7;
+    }
+
+    .section-head { margin-bottom: 56px; }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .feature-card {
+      background: var(--navy-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px 28px;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--red), transparent);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(232,41,62,0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.4), 0 0 0 1px rgba(232,41,62,0.08);
+    }
+
+    .feature-card:hover::before { opacity: 1; }
+
+    .feature-card.wide {
+      grid-column: span 2;
+    }
+
+    .feature-card.full {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .feature-card.full .feature-icon { margin-bottom: 0; flex-shrink: 0; }
+    .feature-card.full .feature-body { flex: 1; }
+
+    .feature-cta-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--red);
+      color: #fff;
+      font-size: 14px; font-weight: 600;
+      padding: 11px 22px;
+      border-radius: 8px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .feature-cta-btn:hover {
+      background: var(--red-hover);
+      transform: translateY(-1px);
+    }
+
+    .feature-icon {
+      width: 48px; height: 48px;
+      background: rgba(232,41,62,0.1);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .feature-icon svg { width: 24px; height: 24px; stroke: var(--red); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+    .feature-tag {
+      display: inline-block;
+      background: rgba(232,41,62,0.1);
+      color: var(--red);
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    .feature-name {
+      font-family: var(--font-display);
+      font-size: 22px; font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+      letter-spacing: 0.01em;
+    }
+
+    .feature-desc {
+      font-size: 14px; font-weight: 300;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── DATA STRIP ───────────────────────────────────────────── */
+    .data-strip {
+      padding: 60px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      position: relative; z-index: 1;
+    }
+
+    .data-strip-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .data-stat {
+      text-align: center;
+      flex: 1; min-width: 140px;
+    }
+
+    .data-stat-num {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 5vw, 60px);
+      font-weight: 900;
+      line-height: 1;
+      color: var(--white);
+    }
+
+    .data-stat-num span { color: var(--red); }
+
+    .data-stat-label {
+      font-size: 12px; font-weight: 500;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .data-divider {
+      width: 1px; height: 60px;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+
+    /* ── FREE SECTION ─────────────────────────────────────────── */
+    .free-section {
+      padding: 100px 0;
+      position: relative; z-index: 1;
+    }
+
+    .free-card {
+      background: var(--navy-card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 64px 56px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .free-card::after {
+      content: '';
+      position: absolute;
+      right: -60px; top: 50%;
+      transform: translateY(-50%);
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(232,41,62,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .free-list {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 14px;
+      margin: 28px 0;
+    }
+
+    .free-list li {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 15px; font-weight: 400;
+      color: var(--off-white);
+    }
+
+    .free-list li::before {
+      content: '';
+      width: 20px; height: 20px;
+      background: rgba(232,41,62,0.15);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='2,6 5,9 10,3' stroke='%23E8293E' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .free-download-area {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 20px; text-align: center;
+    }
+
+    .play-badge {
+      display: inline-flex; align-items: center; gap: 12px;
+      background: var(--white);
+      color: var(--navy);
+      padding: 14px 24px;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    .play-badge:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 36px rgba(0,0,0,0.4);
+    }
+
+    .play-badge-icon {
+      width: 32px; height: 32px;
+    }
+
+    .play-badge-text { text-align: left; }
+
+    .play-badge-sub {
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 0.04em;
+      color: #555;
+      display: block;
+    }
+
+    .play-badge-main {
+      font-family: var(--font-display);
+      font-size: 20px; font-weight: 700;
+      color: var(--navy);
+      line-height: 1;
+    }
+
+    .play-note {
+      font-size: 12px; color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .play-note strong {
+      color: var(--off-white); font-weight: 500;
+    }
+
+    /* ── FOOTER ───────────────────────────────────────────────── */
+    footer {
+      background: var(--navy-mid);
+      border-top: 1px solid var(--border);
+      padding: 56px 0 32px;
+      position: relative; z-index: 1;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 40px;
+      flex-wrap: wrap;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 32px;
+    }
+
+    .footer-brand {}
+
+    .footer-logo {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .footer-logo-icon {
+      width: 32px; height: 32px;
+      background: var(--red);
+      border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .footer-logo-icon svg { width: 18px; height: 18px; fill: #fff; }
+
+    .footer-logo-name {
+      font-family: var(--font-display);
+      font-size: 20px; font-weight: 800;
+      letter-spacing: 0.04em;
+      color: var(--white);
+    }
+
+    .footer-logo-name span { color: var(--red); }
+
+    .footer-tagline {
+      font-size: 13px; color: var(--muted); max-width: 260px;
+      line-height: 1.6;
+    }
+
+    .footer-links-group h4 {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--off-white);
+      margin-bottom: 16px;
+    }
+
+    .footer-links-group ul {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+
+    .footer-links-group ul a {
+      font-size: 13px; color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    .footer-links-group ul a:hover { color: var(--off-white); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-copy {
+      font-size: 12px; color: var(--muted);
+    }
+
+    .footer-copy a { color: var(--muted); border-bottom: 1px solid rgba(122,143,168,0.3); transition: color 0.2s; }
+    .footer-copy a:hover { color: var(--off-white); }
+
+    .footer-legal {
+      display: flex; gap: 20px;
+    }
+
+    .footer-legal a {
+      font-size: 12px; color: var(--muted);
+      transition: color 0.2s;
+      border-bottom: 1px solid transparent;
+    }
+
+    .footer-legal a:hover { color: var(--off-white); border-color: var(--muted); }
+
+    /* ── ANIMATIONS ───────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-left > * {
+      animation: fadeUp 0.7s ease both;
+    }
+
+    .hero-left > *:nth-child(1) { animation-delay: 0.1s; }
+    .hero-left > *:nth-child(2) { animation-delay: 0.2s; }
+    .hero-left > *:nth-child(3) { animation-delay: 0.3s; }
+    .hero-left > *:nth-child(4) { animation-delay: 0.4s; }
+    .hero-left > *:nth-child(5) { animation-delay: 0.5s; }
+
+    .hero-visual {
+      animation: fadeUp 0.8s ease 0.35s both;
+    }
+
+    /* ── RESPONSIVE ───────────────────────────────────────────── */
+    @media (max-width: 960px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero-tagline { max-width: 100%; }
+      .hero-actions { justify-content: center; }
+      .hero-stats { justify-content: center; }
+      .hero-visual { order: -1; }
+      .hero-bg-number { display: none; }
+
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .feature-card.wide {
+        grid-column: span 2;
+      }
+
+      .feature-card.full {
+        grid-column: 1 / -1;
+      }
+
+      .free-card {
+        grid-template-columns: 1fr;
+        padding: 40px 32px;
+        gap: 40px;
+        text-align: center;
+      }
+
+      .free-list li { justify-content: center; }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .feature-card.wide {
+        grid-column: span 1;
+      }
+
+      .feature-card.full {
+        grid-column: span 1;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .feature-cta-btn { display: none; }
+
+      .data-divider { display: none; }
+      .data-strip-inner { justify-content: center; }
+
+      .free-card { padding: 32px 20px; }
+
+      .footer-top { flex-direction: column; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ──────────────────────────────────────────────────── -->
+  <nav>
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo">
+          <div class="nav-logo-icon">
+            <!-- cricket bat icon -->
+            <svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 19 L14 8 L17 5 C18.1 3.9 19.9 3.9 21 5 C22.1 6.1 22.1 7.9 21 9 L18 12 L7 19 Z" fill="#fff"/>
+              <circle cx="4" cy="18" r="2.2" fill="rgba(255,255,255,0.7)"/>
+            </svg>
+          </div>
+          <span class="nav-logo-text">Stat<span>Munshi</span></span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#download">Download</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="mailto:support@statmunshi.in">Contact</a></li>
+          <li><a href="#download" class="nav-cta">Get the App</a></li>
+        </ul>
+        <div class="hamburger" onclick="this.classList.toggle('open')">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── HERO ──────────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-bg-number">22</div>
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-left">
+          <div class="hero-eyebrow">Free for Android · IPL Season 2026</div>
+          <h1 class="hero-title">
+            Cricket Stats<br/>
+            <span class="accent">Re-imagined</span><br/>
+            <span class="line-indent">for Fans</span>
+          </h1>
+          <p class="hero-tagline">
+            <strong>StatMunshi</strong> brings you ball-by-ball IPL statistics,
+            <strong>AI-powered match analysis</strong>, live scores, interactive quizzes
+            and team deep-dives — all in one free app.
+          </p>
+          <div class="hero-actions">
+            <a href="#download" class="btn-primary">
+              <!-- Google Play icon -->
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white">
+                <path d="M3 20.5v-17c0-.83.94-1.3 1.6-.8l14 8.5c.6.37.6 1.23 0 1.6l-14 8.5c-.66.5-1.6.03-1.6-.8z"/>
+              </svg>
+              Download on Google Play
+            </a>
+            <a href="#features" class="btn-secondary">
+              Explore Features ↓
+            </a>
+          </div>
+          <div class="hero-stats">
+            <div class="hero-stat-item">
+              <div class="hero-stat-num">17<span>+</span></div>
+              <div class="hero-stat-label">IPL Seasons</div>
+            </div>
+            <div class="hero-stat-item">
+              <div class="hero-stat-num">950<span>+</span></div>
+              <div class="hero-stat-label">Players Tracked</div>
+            </div>
+            <div class="hero-stat-item">
+              <div class="hero-stat-num">100<span>%</span></div>
+              <div class="hero-stat-label">Free Forever</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phone Mockup -->
+        <div class="hero-visual">
+          <div class="hero-glow"></div>
+          <div class="phone-frame">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="phone-header">
+                <span class="phone-app-name">Stat<span>Munshi</span></span>
+                <span class="phone-live-dot">Live</span>
+              </div>
+              <div class="phone-match-card">
+                <div class="phone-match-teams">
+                  <span>MI</span>
+                  <span class="phone-match-vs">vs</span>
+                  <span>CSK</span>
+                </div>
+                <div class="phone-score">
+                  186/4 <small>· 18.2 ov</small>
+                </div>
+              </div>
+              <div class="phone-stat-row">
+                <div class="phone-stat-box">
+                  <div class="phone-stat-box-label">Top Scorer</div>
+                  <div class="phone-stat-box-val">Rohit 82*</div>
+                </div>
+                <div class="phone-stat-box">
+                  <div class="phone-stat-box-label">Win Prob</div>
+                  <div class="phone-stat-box-val" style="color:var(--red)">68%</div>
+                </div>
+              </div>
+              <div class="phone-ai-card">
+                <div class="phone-ai-icon">✦</div>
+                <div class="phone-ai-text">
+                  <strong>AI Analysis</strong>
+                  MI needs 52 off 22 balls. Rohit's
+                  strike rate in death overs is 178 — the chase looks very achievable…
+                </div>
+              </div>
+            </div>
+            <div class="phone-nav-bar">
+              <div class="phone-nav-item active">
+                <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5"><path d="M2 6l6-4 6 4v8H10v-4H6v4H2z"/></svg>
+                Home
+              </div>
+              <div class="phone-nav-item">
+                <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="12" height="9" rx="1"/><path d="M5 2l.5 2M11 2l-.5 2M2 8h12"/></svg>
+                Stats
+              </div>
+              <div class="phone-nav-item">
+                <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="5"/><path d="M8 5v3l2 1.5"/></svg>
+                Live
+              </div>
+              <div class="phone-nav-item">
+                <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="5" r="2.5"/><path d="M3 13c0-2.76 2.24-5 5-5s5 2.24 5 5"/></svg>
+                AI
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── DATA STRIP ─────────────────────────────────────────────── -->
+  <div class="data-strip">
+    <div class="container">
+      <div class="data-strip-inner">
+        <div class="data-stat">
+          <div class="data-stat-num">1<span>M+</span></div>
+          <div class="data-stat-label">Deliveries in Database</div>
+        </div>
+        <div class="data-divider"></div>
+        <div class="data-stat">
+          <div class="data-stat-num">10<span>+</span></div>
+          <div class="data-stat-label">IPL Teams Covered</div>
+        </div>
+        <div class="data-divider"></div>
+        <div class="data-stat">
+          <div class="data-stat-num">1000<span>+</span></div>
+          <div class="data-stat-label">Matches Analysed</div>
+        </div>
+        <div class="data-divider"></div>
+        <div class="data-stat">
+          <div class="data-stat-num">0<span>₹</span></div>
+          <div class="data-stat-label">No Ads · No Cost</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FEATURES ───────────────────────────────────────────────── -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-label">What's Inside</div>
+        <h2 class="section-title">Everything a cricket fan<br/>could ever want</h2>
+        <p class="section-sub">From historical ball-by-ball data to real-time AI insights — StatMunshi is the deepest cricket companion ever built for IPL.</p>
+      </div>
+      <div class="features-grid">
+
+        <!-- AI Analysis — wide -->
+        <div class="feature-card wide">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <div class="feature-tag">AI-Powered</div>
+          <div class="feature-name">AI Cricket Analysis</div>
+          <p class="feature-desc">Ask anything about IPL and get expert-level analysis powered by advanced AI. Player form, team trends, historical comparisons — answered in plain English instantly.</p>
+        </div>
+
+        <!-- Live Scores -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="feature-tag">Real-Time</div>
+          <div class="feature-name">Live Scores</div>
+          <p class="feature-desc">Ball-by-ball updates for ongoing IPL matches. Never miss a wicket or a six again.</p>
+        </div>
+
+        <!-- Deep Stats -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          </div>
+          <div class="feature-tag">Cricsheet Data</div>
+          <div class="feature-name">Deep Statistics</div>
+          <p class="feature-desc">Ball-by-ball records from 17+ IPL seasons. Batting, bowling, fielding, powerplay, death overs — every number is here.</p>
+        </div>
+
+        <!-- Win Probability -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div class="feature-tag">Predictor</div>
+          <div class="feature-name">Win Probability</div>
+          <p class="feature-desc">Live and historical win probability charts using match state, required run rate, wickets in hand and more.</p>
+        </div>
+
+        <!-- Teams -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="feature-tag">All 10 Teams</div>
+          <div class="feature-name">Team Pages</div>
+          <p class="feature-desc">Explore squad details, head-to-head records, season history and performance breakdowns for every IPL franchise.</p>
+        </div>
+
+        <!-- Quiz — full width -->
+        <div class="feature-card full">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <div class="feature-body">
+            <div class="feature-tag">Play &amp; Learn</div>
+            <div class="feature-name">Cricket Quiz</div>
+            <p class="feature-desc">Test your IPL knowledge with curated trivia questions. Can you identify the player from their stats? Chase the leaderboard and prove you're the ultimate IPL expert.</p>
+          </div>
+          <a href="#download" class="feature-cta-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Play Now
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── DOWNLOAD SECTION ────────────────────────────────────────── -->
+  <section class="free-section" id="download">
+    <div class="container">
+      <div class="free-card">
+        <div>
+          <div class="section-label">No Catches</div>
+          <h2 class="section-title">100% Free.<br/>No Ads.<br/>No Accounts.</h2>
+          <ul class="free-list">
+            <li>Free to download, free to use, forever</li>
+            <li>No advertisements of any kind</li>
+            <li>No sign-up or login required</li>
+            <li>No in-app purchases or subscriptions</li>
+            <li>No personal data collected</li>
+            <li>Available on Android (Google Play)</li>
+          </ul>
+        </div>
+        <div class="free-download-area">
+          <a href="https://play.google.com/store/apps/details?id=com.statmunshi.app" class="play-badge" target="_blank" rel="noopener noreferrer">
+            <!-- Google Play logo in SVG -->
+            <svg class="play-badge-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3.18 23.9c.38.21.83.19 1.2-.04L17.43 16 13.3 11.8 3.18 23.9z" fill="#EA4335"/>
+              <path d="M22.16 10.1c-.5-.28-5.28-3.06-7.52-4.37L10.8 9.7l4.14 4.15 7.22-3.75z" fill="#FBBC04"/>
+              <path d="M3.18.1L13.3 12.2l4.13-4.13L4.38.14C4.01-.09 3.56-.07 3.18.1z" fill="#4285F4"/>
+              <path d="M3.18.1C2.56.44 2.18 1.1 2.18 1.87V22.13c0 .77.38 1.43 1 1.77L13.3 12.2 3.18.1z" fill="#34A853"/>
+            </svg>
+            <div class="play-badge-text">
+              <span class="play-badge-sub">Get it on</span>
+              <span class="play-badge-main">Google Play</span>
+            </div>
+          </a>
+          <p class="play-note">
+            <strong>Free · Android · No in-app purchases</strong><br/>
+            Requires Android 8.0 or higher.<br/>
+            Internet permission only — no other permissions required.
+          </p>
+          <p class="play-note" style="margin-top:4px;">
+            Data sourced from <a href="https://cricsheet.org" target="_blank" rel="noopener" style="color:var(--red);border-bottom:1px solid rgba(232,41,62,0.4);">Cricsheet.org</a>
+            under ODC-BY 1.0 licence.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ──────────────────────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <div class="footer-logo-icon">
+              <svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 19 L14 8 L17 5 C18.1 3.9 19.9 3.9 21 5 C22.1 6.1 22.1 7.9 21 9 L18 12 L7 19 Z" fill="#fff"/>
+                <circle cx="4" cy="18" r="2.2" fill="rgba(255,255,255,0.7)"/>
+              </svg>
+            </div>
+            <span class="footer-logo-name">Stat<span>Munshi</span></span>
+          </div>
+          <p class="footer-tagline">The ultimate AI-powered cricket stats companion for IPL fans in India.</p>
+        </div>
+        <div class="footer-links-group">
+          <h4>App</h4>
+          <ul>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#download">Download</a></li>
+            <li><a href="https://play.google.com/store/apps/details?id=com.statmunshi.app" target="_blank" rel="noopener">Google Play</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="mailto:support@statmunshi.in">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h4>Credits</h4>
+          <ul>
+            <li><a href="https://cricsheet.org" target="_blank" rel="noopener">Cricsheet.org (ODC-BY)</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">
+          &copy; 2026 StatMunshi. All rights reserved.
+          Built with ❤️ for cricket fans in India.
+        </p>
+        <div class="footer-legal">
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="mailto:support@statmunshi.in">support@statmunshi.in</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

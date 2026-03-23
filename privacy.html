@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — StatMunshi</title>
+  <meta name="description" content="StatMunshi Privacy Policy. Learn how we handle your data in our IPL cricket stats and AI analysis Android app." />
+  <meta name="theme-color" content="#07101F" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── RESET & ROOT ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:        #07101F;
+      --navy-mid:    #0D1A2E;
+      --navy-light:  #132238;
+      --navy-card:   #0F1B30;
+      --red:         #E8293E;
+      --red-hover:   #FF3D55;
+      --red-glow:    rgba(232,41,62,0.2);
+      --white:       #FFFFFF;
+      --off-white:   #E8EDF3;
+      --muted:       #7A8FA8;
+      --text:        #B8C8D8;
+      --border:      rgba(255,255,255,0.07);
+      --font-display: 'Barlow Condensed', sans-serif;
+      --font-body:    'Barlow', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    a { color: var(--red); text-decoration: none; transition: color 0.2s; }
+    a:hover { color: var(--red-hover); }
+
+    /* ── NOISE ───────────────────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────────── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(7,16,31,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+      width: 100%; max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-logo-icon {
+      width: 34px; height: 34px;
+      background: var(--red);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .nav-logo-icon svg { width: 20px; height: 20px; fill: #fff; }
+
+    .nav-logo-text {
+      font-family: var(--font-display);
+      font-size: 20px; font-weight: 800;
+      letter-spacing: 0.04em;
+      color: var(--white);
+    }
+
+    .nav-logo-text span { color: var(--red); }
+
+    .nav-back {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13px; font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    .nav-back:hover { color: var(--off-white); }
+
+    /* ── LAYOUT ──────────────────────────────────────────────── */
+    .page-wrap {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 24px 100px;
+      position: relative; z-index: 1;
+    }
+
+    /* ── HEADER BANNER ───────────────────────────────────────── */
+    .policy-header {
+      text-align: center;
+      padding: 48px 32px 52px;
+      background: var(--navy-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      margin-bottom: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .policy-header::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--red), transparent);
+    }
+
+    .policy-header-icon {
+      width: 56px; height: 56px;
+      background: rgba(232,41,62,0.12);
+      border: 1px solid rgba(232,41,62,0.25);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+    }
+
+    .policy-header-icon svg {
+      width: 28px; height: 28px;
+      stroke: var(--red); fill: none;
+      stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    .policy-header h1 {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 5vw, 52px);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+
+    .policy-header h1 span { color: var(--red); }
+
+    .policy-meta {
+      font-size: 13px; color: var(--muted);
+      line-height: 1.7;
+      margin-top: 4px;
+    }
+
+    .policy-meta strong { color: var(--off-white); font-weight: 500; }
+
+    /* ── QUICK SUMMARY BOX ───────────────────────────────────── */
+    .summary-box {
+      background: rgba(232,41,62,0.07);
+      border: 1px solid rgba(232,41,62,0.2);
+      border-radius: 14px;
+      padding: 28px 32px;
+      margin-bottom: 48px;
+    }
+
+    .summary-box h2 {
+      font-family: var(--font-display);
+      font-size: 18px; font-weight: 700;
+      color: var(--red);
+      letter-spacing: 0.04em; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .summary-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 14px; color: var(--off-white);
+    }
+
+    .summary-item::before {
+      content: '✓';
+      color: var(--red);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ── SECTIONS ────────────────────────────────────────────── */
+    .policy-toc {
+      background: var(--navy-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 32px;
+      margin-bottom: 48px;
+    }
+
+    .policy-toc h2 {
+      font-family: var(--font-display);
+      font-size: 16px; font-weight: 700;
+      color: var(--off-white);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 16px;
+    }
+
+    .toc-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .toc-list li a {
+      font-size: 13px; font-weight: 500;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    .toc-list li a:hover { color: var(--red); }
+
+    .toc-list li a::before {
+      content: '↗ ';
+      font-size: 11px;
+    }
+
+    /* section blocks */
+    .policy-section {
+      margin-bottom: 44px;
+      scroll-margin-top: 80px;
+    }
+
+    .section-num {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 8px;
+    }
+
+    .policy-section h2 {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    .policy-section p {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--text);
+      margin-bottom: 14px;
+    }
+
+    .policy-section p:last-child { margin-bottom: 0; }
+
+    .policy-section ul, .policy-section ol {
+      padding-left: 0;
+      list-style: none;
+      margin: 12px 0;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+
+    .policy-section ul li, .policy-section ol li {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text);
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .policy-section ul li::before {
+      content: '—';
+      position: absolute; left: 0;
+      color: var(--red);
+      font-weight: 700;
+    }
+
+    .policy-section ol {
+      counter-reset: ol-counter;
+    }
+
+    .policy-section ol li {
+      counter-increment: ol-counter;
+    }
+
+    .policy-section ol li::before {
+      content: counter(ol-counter) '.';
+      position: absolute; left: 0;
+      color: var(--red);
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .highlight-box {
+      background: var(--navy-card);
+      border-left: 3px solid var(--red);
+      border-radius: 0 10px 10px 0;
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-size: 14px;
+      color: var(--off-white);
+      line-height: 1.7;
+    }
+
+    .highlight-box strong { color: var(--white); font-weight: 600; }
+
+    .no-collect-box {
+      background: rgba(74,222,128,0.06);
+      border: 1px solid rgba(74,222,128,0.2);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin: 16px 0;
+    }
+
+    .no-collect-box h3 {
+      font-family: var(--font-display);
+      font-size: 15px; font-weight: 700;
+      color: #4ade80;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+
+    .no-collect-box ul {
+      margin: 0 !important;
+    }
+
+    .no-collect-box ul li::before {
+      content: '✗';
+      color: #4ade80 !important;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 44px 0;
+    }
+
+    /* contact section */
+    .contact-card {
+      background: var(--navy-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+      margin-top: 48px;
+    }
+
+    .contact-card h2 {
+      font-family: var(--font-display);
+      font-size: 28px; font-weight: 800;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .contact-card p {
+      font-size: 14px; color: var(--muted);
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+
+    .contact-email {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--red);
+      color: #fff !important;
+      font-size: 15px; font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+
+    .contact-email:hover { background: var(--red-hover) !important; }
+
+    /* ── FOOTER ──────────────────────────────────────────────── */
+    footer {
+      background: var(--navy-mid);
+      border-top: 1px solid var(--border);
+      padding: 36px 24px;
+      text-align: center;
+      position: relative; z-index: 1;
+    }
+
+    .footer-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .footer-logo-line {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .footer-logo-line-icon {
+      width: 28px; height: 28px;
+      background: var(--red);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .footer-logo-line-icon svg { width: 16px; height: 16px; fill: #fff; }
+
+    .footer-logo-line-name {
+      font-family: var(--font-display);
+      font-size: 18px; font-weight: 800;
+      letter-spacing: 0.04em;
+      color: var(--white);
+    }
+
+    .footer-logo-line-name span { color: var(--red); }
+
+    .footer-links {
+      display: flex; justify-content: center;
+      gap: 24px; flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .footer-links a {
+      font-size: 12px; color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--off-white); }
+
+    .footer-copy {
+      font-size: 12px; color: var(--muted);
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .summary-grid { grid-template-columns: 1fr; }
+      .toc-list { grid-template-columns: 1fr; }
+      .policy-header { padding: 36px 20px 40px; }
+      .summary-box { padding: 20px; }
+      .policy-toc { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ──────────────────────────────────────────────────── -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon">
+          <svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 19 L14 8 L17 5 C18.1 3.9 19.9 3.9 21 5 C22.1 6.1 22.1 7.9 21 9 L18 12 L7 19 Z" fill="#fff"/>
+            <circle cx="4" cy="18" r="2.2" fill="rgba(255,255,255,0.7)"/>
+          </svg>
+        </div>
+        <span class="nav-logo-text">Stat<span>Munshi</span></span>
+      </a>
+      <a href="index.html" class="nav-back">← Back to Home</a>
+    </div>
+  </nav>
+
+  <!-- ── MAIN ──────────────────────────────────────────────────── -->
+  <main class="page-wrap">
+
+    <!-- Header -->
+    <div class="policy-header">
+      <div class="policy-header-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h1>Privacy <span>Policy</span></h1>
+      <p class="policy-meta">
+        App: <strong>StatMunshi</strong> · Package: <strong>com.statmunshi.app</strong><br/>
+        Developer: <strong>StatMunshi</strong> · Platform: <strong>Android</strong><br/>
+        Last Updated: <strong>March 2026</strong> · Effective Date: <strong>March 2026</strong>
+      </p>
+    </div>
+
+    <!-- Quick Summary -->
+    <div class="summary-box">
+      <h2>🔒 The Short Version</h2>
+      <div class="summary-grid">
+        <div class="summary-item">We do NOT collect personal data</div>
+        <div class="summary-item">No login or registration required</div>
+        <div class="summary-item">No ads, no ad tracking</div>
+        <div class="summary-item">No analytics SDKs installed</div>
+        <div class="summary-item">No camera, mic or location access</div>
+        <div class="summary-item">No push notifications</div>
+        <div class="summary-item">Local cache only (on your device)</div>
+        <div class="summary-item">No personal data sent to AI</div>
+      </div>
+    </div>
+
+    <!-- Table of Contents -->
+    <div class="policy-toc">
+      <h2>Contents</h2>
+      <ol class="toc-list">
+        <li><a href="#s1">Introduction &amp; Scope</a></li>
+        <li><a href="#s2">Information We Collect</a></li>
+        <li><a href="#s3">How We Use Information</a></li>
+        <li><a href="#s4">Data Storage &amp; Security</a></li>
+        <li><a href="#s5">Third-Party Services</a></li>
+        <li><a href="#s6">Children's Privacy</a></li>
+        <li><a href="#s7">Data Retention</a></li>
+        <li><a href="#s8">Your Rights</a></li>
+        <li><a href="#s9">Cookies &amp; Tracking</a></li>
+        <li><a href="#s10">Changes to This Policy</a></li>
+        <li><a href="#s11">Governing Law</a></li>
+        <li><a href="#s12">Contact Information</a></li>
+      </ol>
+    </div>
+
+    <!-- ── SECTION 1 ── -->
+    <div class="policy-section" id="s1">
+      <span class="section-num">Section 01</span>
+      <h2>Introduction &amp; Scope</h2>
+      <p>
+        Welcome to <strong style="color:var(--off-white);">StatMunshi</strong>
+        ("the App", "we", "us", or "our"). StatMunshi is a free Android
+        application developed and operated by <strong style="color:var(--off-white);">StatMunshi</strong>,
+        an independent developer based in India. The App is available on the Google Play Store
+        under the package name <code style="background:rgba(255,255,255,0.06);padding:2px 6px;border-radius:4px;font-size:13px;">com.statmunshi.app</code>.
+      </p>
+      <p>
+        This Privacy Policy explains how we handle information in connection with your use of
+        the StatMunshi Android application. It applies to all users of the App anywhere in
+        the world, including users in India subject to the
+        <strong style="color:var(--off-white);">Information Technology Act, 2000</strong> and the
+        <strong style="color:var(--off-white);">Information Technology (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021</strong>.
+      </p>
+      <p>
+        The App is designed specifically for cricket fans who wish to explore Indian Premier League
+        (IPL) statistics, receive AI-powered cricket analysis, follow live scores, participate in
+        quizzes, play the player guessing game, and use the win probability calculator.
+        The App does not offer real-money gaming, gambling, wagering, or any financial transactions.
+      </p>
+      <div class="highlight-box">
+        <strong>Our Core Commitment:</strong> StatMunshi is built on the principle of minimal
+        data handling. We do not require user accounts, do not collect personally identifiable
+        information, and do not monetise user data in any way whatsoever.
+      </div>
+      <p>
+        By installing or using the App, you acknowledge that you have read and understood this
+        Privacy Policy. If you do not agree with this Policy, please uninstall and discontinue
+        use of the App.
+      </p>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ── SECTION 2 ── -->
+    <div class="policy-section" id="s2">
+      <span class="section-num">Section 02</span>
+      <h2>Information We Collect</h2>
+
+      <div class="no-collect-box">
+        <h3>✗ Information We Do NOT Collect</h3>
+        <ul>
+          <li>Name, email address, phone number, or any contact details</li>
+          <li>Physical address, city, state, country, or ZIP/PIN code</li>
+          <li>Date of birth, age, gender, or any demographic information</li>
+          <li>Device identifiers such as IMEI, IMSI, Android Advertising ID (AAID), or serial number</li>
+          <li>IP address (we do not log or store IP addresses from users)</li>
+          <li>Location data — precise or approximate (no location permission requested)</li>
+          <li>Camera images, microphone audio, contacts, or calendar data</li>
+          <li>Financial information, payment details, or banking data</li>
+          <li>Health, fitness, or biometric data</li>
+          <li>Social media account information or social login credentials</li>
+          <li>User-generated content, photos, or files stored on your device</li>
+          <li>Browsing history, clipboard content, or sensor data</li>
+          <li>Crash reports or diagnostic logs sent to us or any third party</li>
+          <li>Usage analytics, session duration, screen views, or in-app events</li>
+          <li>Push notification tokens or identifiers</li>
+        </ul>
+      </div>
+
+      <h3 style="font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--off-white);margin:24px 0 12px;letter-spacing:0.02em;">2.1 Information Stored Locally on Your Device</h3>
+      <p>
+        StatMunshi uses <strong style="color:var(--off-white);">AsyncStorage</strong> (React Native's
+        local device storage mechanism, equivalent to localStorage) solely to cache IPL cricket
+        statistics data on your device. This caching improves app performance and reduces repeated
+        network calls for static data.
+      </p>
+      <ul>
+        <li>This data consists exclusively of <strong style="color:var(--off-white);">cricket statistics</strong> (match scores, player stats, team records, etc.)</li>
+        <li>This cached data is stored <strong style="color:var(--off-white);">only on your device</strong> and is never transmitted to our servers or any third party</li>
+        <li>No personal or identifying information is included in this cached data</li>
+        <li>You may clear this cached data at any time by clearing the App's storage in your device settings or by uninstalling the App</li>
+      </ul>
+
+      <h3 style="font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--off-white);margin:24px 0 12px;letter-spacing:0.02em;">2.2 AI Query Text</h3>
+      <p>
+        When you use the AI Analysis feature, the text of your cricket-related query is
+        transmitted to Anthropic's Claude API to generate a response. This query text:
+      </p>
+      <ul>
+        <li>Contains only the cricket question you choose to type</li>
+        <li>Does <strong style="color:var(--off-white);">not</strong> include your name, device ID, location, or any identifying information</li>
+        <li>Is not stored by StatMunshi on any server</li>
+        <li>Is processed by Anthropic in accordance with their privacy policy (see Section 5)</li>
+      </ul>
+
+      <h3 style="font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--off-white);margin:24px 0 12px;letter-spacing:0.02em;">2.3 Live Score API Requests</h3>
+      <p>
+        When you access live scores, the App makes HTTP requests to a third-party cricket data
+        API. These requests may include technical information transmitted as part of standard
+        HTTP protocols (such as your device's IP address visible to the API provider's servers).
+        StatMunshi does not control, log, or store this information. Refer to your chosen
+        internet connection provider's and the API provider's privacy policies for details.
+      </p>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ── SECTION 3 ── -->
+    <div class="policy-section" id="s3">
+      <span class="section-num">Section 03</span>
+      <h2>How We Use Information</h2>
+      <p>
+        Because StatMunshi does not collect personal information, there is no personal
+        data for us to use, sell, or share. The following describes how we use the
+        limited technical interactions that occur during App use:
+      </p>
+      <ul>
+        <li><strong style="color:var(--off-white);">Cricket statistics cache</strong> — stored locally on your device solely to provide faster app performance. Not accessible to us.</li>
+        <li><strong style="color:var(--off-white);">AI query text</strong> — forwarded to Anthropic's Claude API solely to generate a cricket analysis response shown to you in the App. We do not retain this text.</li>
+        <li><strong style="color:var(--off-white);">Live score requests</strong> — made to fetch real-time match data solely to display scores within the App.</li>
+      </ul>
+      <p>
+        We do not use any information for: advertising, profiling, marketing, user tracking,
+        analytics, machine learning model training by us, or any purpose other than delivering
+        the core cricket features of the App.
+      </p>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ── SECTION 4 ── -->
+    <div class="policy-section" id="s4">
+      <span class="section-num">Section 04</span>
+      <h2>Data Storage &amp; Security</h2>
+      <p>
+        StatMunshi does not operate any backend servers, databases, or cloud infrastructure
+        that stores user data. All App data resides:
+      </p>
+      <ul>
+        <li><strong style="color:var(--off-white);">On your device</strong> — cricket statistics cache stored in AsyncStorage, protected by your device's operating system security and any screen lock you have configured</li>
+        <li><strong style="color:var(--off-white);">Transiently in transit</strong> — AI queries and live score requests are sent over HTTPS (TLS-encrypted connections) and are not retained by us</li>
+      </ul>
+      <p>
+        Since we do not collect or store personal data on any server, the risk of a data
+        breach affecting your personal information through StatMunshi is effectively nil.
+        The security of locally cached cricket statistics data depends on your device's
+        own security measures (screen lock, encryption, etc.).
+      </p>
+      <div class="highlight-box">
+        <strong>Internet Permission:</strong> The App requests only the
+        <code style="background:rgba(255,255,255,0.06);padding:2px 6px;border-radius:4px;font-size:12px;">INTERNET</code>
+        Android permission, solely to fetch live score data and call the Anthropic Claude API.
+        No other Android permissions (camera, microphone, location, contacts, storage, etc.)
+        are requested or used.
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ── SECTION 5 ── -->
+    <div class="policy-section" id="s5">
+      <span class="section-num">Section 05</span>
+      <h2>Third-Party Services</h2>
+      <p>
+        StatMunshi integrates with the following third-party services. We do not control
+        these services and are not responsible for their data practices. We encourage
+        you to review their respective privacy policies.
+      </p>
+
+      <h3 style="font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--off-white);margin:24px 0 12px;letter-spacing:0.02em;">5.1 Anthropic Claude AI (AI Analysis Feature)</h3>
+      <ul>
+        <li><strong style="color:var(--off-white);">Provider:</strong> Anthropic, PBC, 548 Market St PMB 90375, San Francisco, CA 94104, USA</li>
+        <li><strong style="color:var(--off-white);">Purpose:</strong> Generating cricket analysis responses to user-typed queries</li>
+        <li><strong style="color:var(--off-white);">Data sent:</strong> The text of your cricket question only — no personal identifiers are included by StatMunshi</li>
+        <li><strong style="color:var(--off-white);">Privacy Policy:</strong> <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener">https://www.anthropic.com/legal/privacy</a></li>
+        <li><strong style="color:var(--off-white);">Terms of Service:</strong> <a href="https://www.anthropic.com/legal/aup" target="_blank" rel="noopener">https://www.anthropic.com/legal/aup</a></li>
+      </ul>
+
+      <h3 style="font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--off-white);margin:24px 0 12px;letter-spacing:0.02em;">5.2 Live Score Data Provider</h3>
+      <ul>
+        <li><strong style="color:var(--off-white);">Purpose:</strong> Providing real-time IPL match scores and ball-by-ball data</li>
+        <li><strong style="color:var(--off-white);">Data sent:</strong> Standard HTTP request headers as required by the API (may include IP address visible to the API provider)</li>
+        <li>StatMunshi does not share any personal user data with any live score data provider</li>
+      </ul>
+
+      <h3 style="font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--off-white);margin:24px 0 12px;letter-spacing:0.02em;">5.3 Cricsheet.org (Historical Data Source)</h3>
+      <ul>
+        <li><strong style="color:var(--off-white);">Provider:</strong> Cricsheet (<a href="https://cricsheet.org" target="_blank" rel="noopener">cricsheet.org</a>)</li>
+        <li><strong style="color:var(--off-white);">Purpose:</strong> Source of ball-by-ball historical IPL match data used to build the in-app statistics</li>
+        <li><strong style="color:var(--off-white);">Licence:</strong> Open Data Commons Attribution Licence (ODC-BY 1.0)</li>
+        <li>This is a data source used during app development. No user data is sent to Cricsheet at runtime</li>
+      </ul>
+
+      <h3 style="font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--off-white);margin:24px 0 12px;letter-spacing:0.02em;">5.4 Services We Do NOT Use</h3>
+      <div class="no-collect-box">
+        <h3 style="font-size:13px;">✗ Explicitly Not Integrated</h3>
+        <ul>
+          <li>Google AdMob or any advertising network</li>
+          <li>Google Firebase Analytics, Crashlytics, or any Firebase service</li>
+          <li>Meta (Facebook) SDK, Audience Network, or Login</li>
+          <li>Google Sign-In, Apple Sign-In, or any social login</li>
+          <li>Mixpanel, Amplitude, Segment, or any analytics SDK</li>
+          <li>Sentry, Bugsnag, or any crash reporting service</li>
+          <li>Any real-money gaming, fantasy sports, or gambling platform</li>
+          <li>Any payment processor or billing library</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ── SECTION 6 ── -->
+    <div class="policy-section" id="s6">
+      <span class="section-num">Section 06</span>
+      <h2>Children's Privacy</h2>
+      <p>
+        StatMunshi is rated for users aged <strong style="color:var(--off-white);">13 and older</strong>
+        on the Google Play Store. The App does not knowingly collect, solicit, or use personal
+        information from children under the age of 13.
+      </p>
+      <p>
+        In compliance with the <strong style="color:var(--off-white);">Children's Online Privacy Protection Act (COPPA)</strong>
+        and applicable Indian regulations including the
+        <strong style="color:var(--off-white);">Protection of Children from Sexual Offences Act, 2012</strong>
+        and the IT Rules 2021:
+      </p>
+      <ul>
+        <li>We do not knowingly collect personal information from children under 13</li>
+        <li>We do not target our App to children under 13</li>
+        <li>The App does not contain age-inappropriate content (no violence, adult content, gambling, or real-money gaming)</li>
+        <li>Since the App requires no registration and collects no personal data from any user, there is no mechanism by which a child's personal data could be specifically collected</li>
+        <li>If you are a parent or guardian and believe your child under 13 has provided us with personal information, please contact us at <a href="mailto:support@statmunshi.in">support@statmunshi.in</a> and we will take prompt action</li>
+      </ul>
+      <p>
+        If you are between 13 and 18 years of age, we encourage you to use the App with
+        awareness of this Privacy Policy and, where appropriate, with parental guidance.
+      </p>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ── SECTION 7 ── -->
+    <div class="policy-section" id="s7">
+      <span class="section-num">Section 07</span>
+      <h2>Data Retention</h2>
+      <p>
+        Since StatMunshi does not collect or store personal data on any server operated by us,
+        there is no personal data retention period to define.
+      </p>
+      <ul>
+        <li><strong style="color:var(--off-white);">Device cache (cricket stats):</strong> Retained locally on your device until you clear the App's data or uninstall the App. You control this entirely.</li>
+        <li><strong style="color:var(--off-white);">AI query text:</strong> Not retained by StatMunshi. Anthropic's retention of API inputs is governed by their privacy policy and API usage terms.</li>
+        <li><strong style="color:var(--off-white);">Live score requests:</strong> Not retained by StatMunshi. The respective API provider may retain standard server logs per their own policies.</li>
+      </ul>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ── SECTION 8 ── -->
+    <div class="policy-section" id="s8">
+      <span class="section-num">Section 08</span>
+      <h2>Your Rights</h2>
+      <p>
+        Under applicable Indian law (IT Act 2000, IT Rules 2021) and internationally
+        recognised data privacy principles, you have the right to:
+      </p>
+      <ul>
+        <li><strong style="color:var(--off-white);">Access</strong> — Request information about any data we hold about you</li>
+        <li><strong style="color:var(--off-white);">Correction</strong> — Request correction of any inaccurate data</li>
+        <li><strong style="color:var(--off-white);">Deletion</strong> — Request deletion of your data</li>
+        <li><strong style="color:var(--off-white);">Portability</strong> — Request a copy of your data in a usable format</li>
+        <li><strong style="color:var(--off-white);">Objection</strong> — Object to the processing of your data</li>
+        <li><strong style="color:var(--off-white);">Withdrawal of consent</strong> — Withdraw consent at any time (where processing is based on consent)</li>
+      </ul>
+      <p>
+        As StatMunshi does not collect or process any personal data, exercising these rights
+        in practice means: you may <strong style="color:var(--off-white);">uninstall the App</strong>
+        at any time to remove the locally cached cricket statistics from your device, and you
+        may <strong style="color:var(--off-white);">contact us</strong> to confirm that we hold
+        no personal data about you (which we will confirm).
+      </p>
+      <p>
+        To exercise any of these rights, please contact us at
+        <a href="mailto:support@statmunshi.in">support@statmunshi.in</a>.
+        We will respond within <strong style="color:var(--off-white);">30 days</strong> of receiving your request.
+      </p>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ── SECTION 9 ── -->
+    <div class="policy-section" id="s9">
+      <span class="section-num">Section 09</span>
+      <h2>Cookies &amp; Tracking Technologies</h2>
+      <p>
+        StatMunshi is an Android application and does <strong style="color:var(--off-white);">not</strong>
+        use cookies, web beacons, pixel tags, device fingerprinting, or any other
+        tracking technologies.
+      </p>
+      <div class="no-collect-box">
+        <h3>✗ Tracking Technologies Not Used</h3>
+        <ul>
+          <li>HTTP cookies of any kind</li>
+          <li>Android Advertising ID (AAID) — not accessed or used</li>
+          <li>Device fingerprinting techniques</li>
+          <li>Web beacons or pixel trackers</li>
+          <li>Cross-app tracking identifiers</li>
+          <li>Session replay or heatmap tools</li>
+          <li>Third-party tracking pixels or scripts</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ── SECTION 10 ── -->
+    <div class="policy-section" id="s10">
+      <span class="section-num">Section 10</span>
+      <h2>Changes to This Privacy Policy</h2>
+      <p>
+        We may update this Privacy Policy from time to time to reflect changes in the App,
+        applicable law, or our practices. When we make material changes, we will:
+      </p>
+      <ul>
+        <li>Update the "Last Updated" date at the top of this policy</li>
+        <li>Post the revised policy at <a href="https://statmunshi.in/privacy">https://statmunshi.in/privacy</a></li>
+        <li>Update the policy link in the Google Play Store listing</li>
+      </ul>
+      <p>
+        We may also notify users of significant changes through an in-app notice.
+        Your continued use of the App after the effective date of the revised policy
+        constitutes your acceptance of the changes. If you do not agree to the revised
+        policy, please uninstall the App.
+      </p>
+      <p>
+        We will not make changes that reduce your privacy rights without providing reasonable
+        notice and, where required by law, obtaining your consent.
+      </p>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ── SECTION 11 ── -->
+    <div class="policy-section" id="s11">
+      <span class="section-num">Section 11</span>
+      <h2>Governing Law &amp; Jurisdiction</h2>
+      <p>
+        This Privacy Policy is governed by and construed in accordance with the
+        <strong style="color:var(--off-white);">laws of India</strong>, including but not limited to:
+      </p>
+      <ul>
+        <li>The Information Technology Act, 2000 (as amended)</li>
+        <li>The Information Technology (Reasonable Security Practices and Procedures and Sensitive Personal Data or Information) Rules, 2011</li>
+        <li>The Information Technology (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021</li>
+        <li>The Digital Personal Data Protection Act, 2023 (DPDPA) — to the extent in force and applicable</li>
+      </ul>
+      <p>
+        Any disputes arising out of or in connection with this Privacy Policy shall be subject
+        to the exclusive jurisdiction of the competent courts in India.
+      </p>
+      <p>
+        For users outside India, including users in the European Economic Area (EEA) or
+        California (USA), please note that by using the App you are interacting with a service
+        based in India. We do not target or specifically direct the App at users outside India,
+        and this App is designed primarily for cricket fans in India.
+      </p>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ── SECTION 12 ── -->
+    <div class="policy-section" id="s12">
+      <span class="section-num">Section 12</span>
+      <h2>Contact Information</h2>
+      <p>
+        If you have any questions, concerns, or requests regarding this Privacy Policy
+        or the data practices of StatMunshi, please contact us:
+      </p>
+      <ul>
+        <li><strong style="color:var(--off-white);">Developer / Data Controller:</strong> StatMunshi</li>
+        <li><strong style="color:var(--off-white);">Email:</strong> <a href="mailto:support@statmunshi.in">support@statmunshi.in</a></li>
+        <li><strong style="color:var(--off-white);">Website:</strong> <a href="https://statmunshi.in" target="_blank" rel="noopener">https://statmunshi.in</a></li>
+        <li><strong style="color:var(--off-white);">Country:</strong> India</li>
+        <li><strong style="color:var(--off-white);">App Package:</strong> com.statmunshi.app</li>
+        <li><strong style="color:var(--off-white);">Response Time:</strong> We aim to respond to all inquiries within 30 days</li>
+      </ul>
+      <div class="highlight-box" style="margin-top:20px;">
+        <strong>Grievance Contact:</strong> For any privacy-related grievances, contact us at
+        <a href="mailto:support@statmunshi.in">support@statmunshi.in</a>.
+        Grievances are acknowledged within <strong>24 hours</strong> and resolved within <strong>30 days</strong> of receipt.
+      </div>
+    </div>
+
+    <!-- Contact Card -->
+    <div class="contact-card">
+      <h2>Questions About Your Privacy?</h2>
+      <p>
+        We're committed to being transparent about our data practices. If anything in this
+        policy is unclear, reach out — we're happy to help.
+      </p>
+      <a href="mailto:support@statmunshi.in" class="contact-email">
+        ✉ support@statmunshi.in
+      </a>
+    </div>
+
+  </main>
+
+  <!-- ── FOOTER ──────────────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo-line">
+        <div class="footer-logo-line-icon">
+          <svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 19 L14 8 L17 5 C18.1 3.9 19.9 3.9 21 5 C22.1 6.1 22.1 7.9 21 9 L18 12 L7 19 Z" fill="#fff"/>
+            <circle cx="4" cy="18" r="2.2" fill="rgba(255,255,255,0.7)"/>
+          </svg>
+        </div>
+        <span class="footer-logo-line-name">Stat<span>Munshi</span></span>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="mailto:support@statmunshi.in">Contact</a>
+        <a href="https://play.google.com/store/apps/details?id=com.statmunshi.app" target="_blank" rel="noopener">Google Play</a>
+      </div>
+      <p class="footer-copy">
+        &copy; 2026 StatMunshi. All rights reserved. · Laws of India apply. ·
+        Data sourced from <a href="https://cricsheet.org" target="_blank" rel="noopener" style="color:var(--muted);">Cricsheet.org</a> (ODC-BY 1.0)
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>

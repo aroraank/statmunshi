@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CricIQ — IPL Cricket Stats & AI Analysis</title>
   <meta name="description" content="CricIQ is the ultimate cricket companion for IPL fans. Explore deep stats, AI-powered analysis, live scores, quizzes and more. Free on Android." />
-  <meta name="theme-color" content="#07101F" />
+  <meta name="theme-color" content="#F5C518" />
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <link rel="shortcut icon" href="favicon.ico" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -20,9 +20,9 @@
       --navy-mid:    #0D1A2E;
       --navy-light:  #132238;
       --navy-card:   #0F1B30;
-      --red:         #E8293E;
-      --red-hover:   #FF3D55;
-      --red-glow:    rgba(232,41,62,0.25);
+      --red:         #F5C518;
+      --red-hover:   #FFD84D;
+      --red-glow:    rgba(245,197,24,0.25);
       --white:       #FFFFFF;
       --off-white:   #E8EDF3;
       --muted:       #7A8FA8;
@@ -66,7 +66,7 @@
     /* ── NAV ─────────────────────────────────────────────────── */
     nav {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(7,16,31,0.92);
+      background: rgba(7,16,31,0.96);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
@@ -159,7 +159,7 @@
       position: absolute;
       top: -10%; right: -5%;
       width: 55%; height: 130%;
-      background: linear-gradient(135deg, transparent 0%, rgba(232,41,62,0.04) 50%, transparent 100%);
+      background: linear-gradient(135deg, transparent 0%, rgba(245,197,24,0.04) 50%, transparent 100%);
       transform: skewX(-8deg);
       pointer-events: none;
     }
@@ -188,8 +188,8 @@
 
     .hero-eyebrow {
       display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(232,41,62,0.12);
-      border: 1px solid rgba(232,41,62,0.3);
+      background: rgba(245,197,24,0.12);
+      border: 1px solid rgba(245,197,24,0.3);
       border-radius: 40px;
       padding: 5px 14px 5px 10px;
       font-size: 11px; font-weight: 600;
@@ -326,7 +326,7 @@
       box-shadow:
         0 0 0 1px rgba(255,255,255,0.04),
         0 40px 80px rgba(0,0,0,0.6),
-        0 0 60px rgba(232,41,62,0.12);
+        0 0 60px rgba(245,197,24,0.12);
     }
 
     .phone-notch {
@@ -374,8 +374,8 @@
     }
 
     .phone-match-card {
-      background: linear-gradient(135deg, rgba(232,41,62,0.18), rgba(232,41,62,0.06));
-      border: 1px solid rgba(232,41,62,0.25);
+      background: linear-gradient(135deg, rgba(245,197,24,0.18), rgba(245,197,24,0.06));
+      border: 1px solid rgba(245,197,24,0.25);
       border-radius: 12px;
       padding: 12px;
     }
@@ -485,7 +485,7 @@
       position: absolute;
       width: 340px; height: 340px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(232,41,62,0.15) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(245,197,24,0.15) 0%, transparent 70%);
       pointer-events: none;
     }
 
@@ -547,9 +547,9 @@
     }
 
     .feature-card:hover {
-      border-color: rgba(232,41,62,0.3);
+      border-color: rgba(245,197,24,0.3);
       transform: translateY(-4px);
-      box-shadow: 0 16px 48px rgba(0,0,0,0.4), 0 0 0 1px rgba(232,41,62,0.08);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.4), 0 0 0 1px rgba(245,197,24,0.08);
     }
 
     .feature-card:hover::before { opacity: 1; }
@@ -587,7 +587,7 @@
 
     .feature-icon {
       width: 48px; height: 48px;
-      background: rgba(232,41,62,0.1);
+      background: rgba(245,197,24,0.1);
       border-radius: 12px;
       display: flex; align-items: center; justify-content: center;
       margin-bottom: 20px;
@@ -597,7 +597,7 @@
 
     .feature-tag {
       display: inline-block;
-      background: rgba(232,41,62,0.1);
+      background: rgba(245,197,24,0.1);
       color: var(--red);
       font-size: 10px; font-weight: 700;
       letter-spacing: 0.08em; text-transform: uppercase;
@@ -689,7 +689,7 @@
       right: -60px; top: 50%;
       transform: translateY(-50%);
       width: 300px; height: 300px;
-      background: radial-gradient(circle, rgba(232,41,62,0.1) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(245,197,24,0.1) 0%, transparent 70%);
       pointer-events: none;
     }
 
@@ -708,7 +708,7 @@
     .free-list li::before {
       content: '';
       width: 20px; height: 20px;
-      background: rgba(232,41,62,0.15);
+      background: rgba(245,197,24,0.15);
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
@@ -1181,7 +1181,7 @@
             Internet permission only — no other permissions required.
           </p>
           <p class="play-note" style="margin-top:4px;">
-            Data sourced from <a href="https://cricsheet.org" target="_blank" rel="noopener" style="color:var(--red);border-bottom:1px solid rgba(232,41,62,0.4);">Cricsheet.org</a>
+            Data sourced from <a href="https://cricsheet.org" target="_blank" rel="noopener" style="color:var(--red);border-bottom:1px solid rgba(245,197,24,0.4);">Cricsheet.org</a>
             under ODC-BY 1.0 licence.
           </p>
         </div>
